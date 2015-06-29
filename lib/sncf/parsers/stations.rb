@@ -1,12 +1,12 @@
 module Sncf
   module Parsers
-    class Places < Sncf::Parsers::Default
-      def get_places_list
-        places = administrative_regions = []
+    class Stations < Sncf::Parsers::Default
+      def get_stations_list
+        stations, administrative_regions = [], []
 
         @api_response.content['places'].each do |place|
           if place['embedded_type'] == 'stop_area'
-            place['stop_area']['administrative_regions']. each do |administrative_region|
+            place['stop_area']['administrative_regions'].each do |administrative_region|
               administrative_regions << create_model('AdministrativeRegion', {
                 id: administrative_region['id'],
                 insee: administrative_region['insee'],
@@ -18,7 +18,7 @@ module Sncf
               })
             end
 
-            places << create_model('Place', {
+            stations << create_model('Station', {
               id: place['id'],
               coord: place['stop_area']['coord'],
               quality: place['quality'],
@@ -30,7 +30,7 @@ module Sncf
           end
         end
 
-        places
+        stations
       end
     end
   end

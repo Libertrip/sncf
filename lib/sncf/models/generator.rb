@@ -1,8 +1,8 @@
 module Sncf
   module Models
-    MODEL_NAMES = %w[Place AdministrativeRegion]
+    MODEL_NAMES = %w[Station AdministrativeRegion]
     MODEL_ATTRIBUTES = {
-      'Place' => [:id, :coord, :quality, :name, :label, :timezone, :administrative_regions],
+      'Station' => [:id, :coord, :quality, :name, :label, :timezone, :administrative_regions],
       'AdministrativeRegion' => [:insee, :level, :coord, :name, :label, :id, :zip_code]
     }
 

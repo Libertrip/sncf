@@ -49,7 +49,7 @@ module Sncf
         q: place
       })
 
-      Sncf::Parsers::Places.new(stations_response).get_places_list
+      Sncf::Parsers::Stations.new(stations_response).get_stations_list
     end
 
     protected
