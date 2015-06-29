@@ -55,10 +55,10 @@ module Sncf
     protected
 
     def construct_formated_url(path, additional_params)
-      if additional_params.nil?
+      if additional_params.nil? || additional_params.empty?
         "#{BASE_URL}/#{VERSION_PATH}/#{path}"
       else
-        "#{BASE_URL}/#{VERSION_PATH}/#{path}?#{URI.encode_www_form(additional_params)}"
+        "#{BASE_URL}/#{VERSION_PATH}/#{path}?#{additional_params.map{|k,v| "#{k}=#{v}"}.join('&')}"
       end
     end
   end
