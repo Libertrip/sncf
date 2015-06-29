@@ -42,13 +42,23 @@ module Sncf
       end
     end
 
+    def fetch_stations(place)
+      raise ArgumentError, "The fetch_place argument should be a string, example: 'Paris Nord'." if place.to_s == ''
+
+      stations_response = fetch('coverage/sncf/places', {
+        q: place
+      })
+
+      Sncf::Parsers::Places.new(stations_response).get_places_list
+    end
+
     protected
 
     def construct_formated_url(path, additional_params)
       if additional_params.nil?
         "#{BASE_URL}/#{VERSION_PATH}/#{path}"
       else
-        "#{BASE_URL}/#{VERSION_PATH}/#{path}?#{additional_params.to_query}"
+        "#{BASE_URL}/#{VERSION_PATH}/#{path}?#{URI.encode_www_form(additional_params)}"
       end
     end
   end
