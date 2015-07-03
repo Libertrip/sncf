@@ -2,7 +2,7 @@ require 'http'
 require 'oj'
 module Sncf
   class ApiResponse
-    attr_reader :response, :body, :content, :pagination, :start_page
+    attr_reader :response, :body, :content, :pagination, :start_page, :query
 
     def initialize(response, query)
       @response = response

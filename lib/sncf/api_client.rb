@@ -52,6 +52,33 @@ module Sncf
       Sncf::Parsers::Stations.new(stations_response).get_stations_list
     end
 
+    def fetch_journeys_by_stations(from, to, time, options = {})
+      raise ArgumentError, "The `from` argument should be a string, example: 'Paris Nord'." if from.to_s == ''
+      raise ArgumentError, "The `to` argument should be a string, example: 'Paris Nord'." if to.to_s == ''
+      raise ArgumentError, "The `time` argument should be Time or DateTime." unless time.is_a?(Time) || time.is_a?(DateTime)
+
+      from_station  = fetch_stations(from).first
+      to_station    = fetch_stations(to).first
+
+      case
+      when from_station.nil?
+        raise ArgumentError, "The '#{from}' station doesn't exist."
+      when to_station.nil?
+        raise ArgumentError, "The '#{to}' station doesn't exist."
+      else
+        fetch_journeys_by_station_ids from_station.id, to_station.id, time, options
+      end
+    end
+
+    def fetch_journeys_by_station_ids(from_station_id, to_station_id, time, options)
+      fetch_options = {
+        from: from_station_id,
+        to: to_station_id,
+        datetime: time.to_datetime.strftime('%Y%m%dT%H%M%S')
+      }.merge(options)
+      fetch('coverage/sncf/journeys', fetch_options)
+    end
+
     protected
 
     def construct_formated_url(path, additional_params)

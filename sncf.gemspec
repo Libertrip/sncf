@@ -9,9 +9,9 @@ Gem::Specification.new do |spec|
   spec.authors       = ["Rémi Delhaye"]
   spec.email         = ["remi@libertrip.com"]
 
-  spec.summary       = %q{SNCF open data API ruby gem}
-  spec.description   = %q{SNCF open source API. Documentation here: https://data.sncf.com/api/documentation }
-  spec.homepage      = "https://github.com/rdlh/sncf"
+  spec.summary       = %q{Open source ruby api client for SNCF Open Data API}
+  spec.description   = %q{Open source ruby api client for SNCF Open Data API. Documentation available here: https://github.com/Libertrip/sncf }
+  spec.homepage      = "https://github.com/Libertrip/sncf"
   spec.license       = "MIT"
 
   spec.files         = `git ls-files`.split("\n").reject { |f| f.match(%r{^(test|spec|features)/}) }
